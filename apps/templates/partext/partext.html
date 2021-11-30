@@ -1,0 +1,58 @@
+{% extends "layouts/base.html" %}
+
+{% block title %} Icons {% endblock %}
+
+<!-- Page CSS Plugins goes HERE  -->
+{% block plugin_stylesheets %}{% endblock plugin_stylesheets %}
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+<div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
+  <div class="container">
+    <div class="az-content-body pd-lg-l-40 d-flex flex-column">
+      <div class="az-content-breadcrumb">
+        <span>中法政治话语语料库</span>
+        <span>功能</span>
+        <span>平行语料库</span>
+      </div>
+      <h2 class="az-content-title">平行语料库</h2>
+      <div class="az-content-label mg-b-5">平行语料库 &amp; 检索</div>
+      <p class="mg-b-20">对已构建的语料，进行术语 (单词或词块)上下文查找，显示基本的可视性数据</p>
+      <form class="" _lpchecked="1" action="/partext/search" method="GET">
+        <div class="row row-sm">
+          <div class="col-lg-8">
+            <div class="input-group mg-b-0">
+              <input class="form-control" placeholder="检索关键词，例如:amour" value="" required="" type="text" name="key">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+              </span>
+            </div><!-- form-group -->
+          </div><!-- col -->
+        </div><!-- row -->
+        <div class="row row-sm">
+          <div class="col-lg-6">
+            {% for phrase in data %}
+            <textarea rows="5" class="form-control" placeholder="{{ phrase.zh }}" readonly=""></textarea>
+            {% endfor %}
+          </div>
+          <div class="col-lg-6">
+            {% for phrase in data %}
+            <textarea rows="5" class="form-control" placeholder="{{ phrase.fr }}" readonly=""></textarea>
+            {% endfor %}
+          </div>
+        </div><!-- row -->
+      </form>
+    </div><!-- az-content-body -->
+  </div><!-- container -->
+</div><!-- az-content -->
+
+{% endblock content %}
+
+<!-- Page JS Plugins goes HERE  -->
+{% block plugin_javascripts %}{% endblock plugin_javascripts %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}

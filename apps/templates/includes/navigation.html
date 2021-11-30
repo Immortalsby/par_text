@@ -1,0 +1,58 @@
+
+    <div class="az-header">
+      <div class="container">
+        <div class="az-header-left">
+          <a href="index" class="az-logo"><span></span> 中法政治话语语料库</a>
+          <a href="" id="azMenuShow" class="az-header-menu-icon d-lg-none"><span></span></a>
+        </div><!-- az-header-left -->
+        <div class="az-header-menu">
+          <div class="az-header-menu-header">
+            <a href="index" class="az-logo"><span></span> 中法政治话语语料库</a>
+            <a href="" class="close">&times;</a>
+          </div><!-- az-header-menu-header -->
+          <ul class="nav">
+            <li class="nav-item {% if home %} active show {% endif %}">
+              <a href="index" class="nav-link"><i class="typcn typcn-chart-area-outline"></i> 主页</a>
+            </li>
+            <li class="nav-item {% if partext or analogy %} active show {% endif %}">
+              <a href="" class="nav-link with-sub"><i class="typcn typcn-document"></i> 功能</a>
+              <nav class="az-menu-sub">
+                <a href="partext" class="nav-link">平行语料库</a>
+                <a href="analogy" class="nav-link">单语政治类比语料库</a>
+              </nav>
+            </li>
+            <li class="nav-item">
+              <a href="upload.html" class="nav-link"><i class="typcn typcn-arrow-up-outline"></i> 上传</a>
+            </li>
+            <li class="nav-item">
+              <a href="download.html" class="nav-link"><i class="typcn typcn-arrow-down-outline"></i> 下载</a>
+            </li>
+          </ul>
+        </div><!-- az-header-menu -->
+        <div class="az-header-right">
+          <div class="dropdown az-profile-menu">
+            <a href="" class="az-img-user"><img src="/static/assets/img/faces/miaojun.jpg" alt=""></a>
+            <div class="dropdown-menu">
+              <div class="az-dropdown-header d-sm-none">
+                <a href="" class="az-header-arrow"><i class="icon ion-md-arrow-back"></i></a>
+              </div>
+              <div class="az-header-profile">
+                <div class="az-img-user">
+                  <img src="/static/assets/img/faces/miaojun.jpg" alt="">
+                </div><!-- az-img-user -->
+                <h6>
+                  {{ current_user.username }}
+                </h6>
+                <span>
+                  {{ current_user.email }}
+                </span>
+              </div><!-- az-header-profile -->
+
+              <a href="" class="dropdown-item"><i class="typcn typcn-user-outline"></i> 我的账户</a>
+              <a href="" class="dropdown-item"><i class="typcn typcn-time"></i> 历史活动</a>
+              <a href="{{ url_for('authentication_blueprint.logout') }}" class="dropdown-item"><i class="typcn typcn-power-outline"></i> 登出</a>
+            </div><!-- dropdown-menu -->
+          </div>
+        </div><!-- az-header-right -->
+      </div><!-- container -->
+    </div><!-- az-header -->

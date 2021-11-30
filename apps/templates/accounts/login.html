@@ -1,0 +1,56 @@
+{% extends "layouts/base-fullscreen.html" %}
+
+{% block title %} Login {% endblock %} 
+
+<!-- Specific Page CSS goes HERE  -->
+{% block stylesheets %}{% endblock stylesheets %}
+
+{% block content %}
+
+    <div class="az-signin-wrapper">
+      <div class="az-card-signin">
+        <h1 class="az-logo">Miaojun</h1>
+        <div class="az-signin-header">
+          <h2>
+            中法政治话语语料库
+          </h2>
+          <h4 {% if msg %} class="text-danger" {% endif %} >
+            {% if msg %}
+                {{ msg | safe }}
+            {% else %}
+                欢迎访问，请先登录
+            {% endif %} 
+          </h4>
+
+          <form role="form" method="post" action="">
+
+            {{ form.hidden_tag() }} 
+
+            <div class="form-group">
+              <label>用户名</label>
+              {{ form.username(placeholder="用户名", class="form-control") }}
+            </div><!-- form-group -->
+            <div class="form-group">
+              <label>密码</label>
+              {{ form.password(placeholder="密码", class="form-control", type="password") }}
+            </div><!-- form-group -->
+
+            <button type="submit" name="login" class="btn btn-az-primary btn-block">登录</button>
+          </form>
+
+        </div><!-- az-signin-header -->
+        <div class="az-signin-footer">
+          <p>还没有账户吗? <a href="{{ url_for('authentication_blueprint.register') }}">注册</a></p>
+          <br />
+          <p>
+            &copy; <a target="_blank" href="http://miaojun.net">miaojun.net</a> 
+            - coded by <a target="_blank" href="http://miaojun.net">Boyuan SHI</a>          
+          </p>
+        </div><!-- az-signin-footer -->
+      </div><!-- az-card-signin -->
+    </div><!-- az-signin-wrapper -->
+
+{% endblock content %}
+
+<!-- Specific Page JS goes HERE  -->
+{% block javascripts %}{% endblock javascripts %}
