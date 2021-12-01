@@ -8,6 +8,7 @@ from flask import render_template, request
 from flask_login import login_required
 from jinja2 import TemplateNotFound
 from .models import Partext
+from .util import is_contains_chinese
 
 
 @blueprint.route('/partext', methods=['GET','POST'])
@@ -19,9 +20,10 @@ def index():
 @login_required
 def search():
     key = request.args.get('key')
-    data = Partext.query.filter(Partext.zh.like("%" + key + "%")).all()
+    if is_contains_chinese(key):
+        data = Partext.query.filter(Partext.zh.like("%" + key + "%")).all()
     if data:
         print(data)
     else:
         data = Partext.query.filter(Partext.fr.like("%" + key + "%")).all()
-    return render_template('partext/partext.html', segment='index', partext="active", data=data)
+    return render_template('partext/partext.html', segment='index', partext="active", data=data,key=key)

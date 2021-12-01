@@ -15,11 +15,15 @@
             中法政治话语语料库
           </h2>
           <h4 {% if msg %} class="text-danger" {% endif %} >
+            {% with messages = get_flashed_messages() %}
+            {% for msg in messages %}
             {% if msg %}
                 {{ msg | safe }}
             {% else %}
                 欢迎访问，请先登录
-            {% endif %} 
+            {% endif %}
+            {% endfor %}
+            {% endwith %}
           </h4>
 
           <form role="form" method="post" action="">

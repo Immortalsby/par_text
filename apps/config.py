@@ -58,3 +58,4 @@ default_file = {
     'zh': 'upload/3aube_CN_para_utf8.txt',
     'fr': 'upload/3aube_FR_para_utf8.txt'
 }
+init_partext = False

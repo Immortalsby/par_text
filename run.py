@@ -7,7 +7,7 @@ from flask_migrate import Migrate
 from sys import exit
 from decouple import config
 from apps.partext.models import init_partext_db
-from apps.config import config_dict, default_file
+from apps.config import config_dict, default_file, init_partext
 from apps import create_app
 from apps.db import db
 
@@ -27,8 +27,9 @@ except KeyError:
 app = create_app(app_config)
 Migrate(app, db)
 
-# with app.app_context():
-#     init_partext_db(default_file['zh'],default_file['fr'])
+if init_partext == True:
+    with app.app_context():
+        init_partext_db(default_file['zh'],default_file['fr'])
 
 
 if DEBUG:

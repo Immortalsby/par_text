@@ -3,7 +3,7 @@
 Copyright (c) 2021 - present Boyuanshi.com
 """
 
-from flask import render_template, redirect, request, url_for
+from flask import render_template, redirect, request, url_for,flash
 from flask_login import (
     current_user,
     login_user,
@@ -83,10 +83,12 @@ def register():
         db.session.add(user)
         db.session.commit()
 
-        return render_template('accounts/register.html',
-                               msg='User created please <a href="/login">login</a>',
-                               success=True,
-                               form=create_account_form)
+        # return render_template('accounts/login.html',
+        #                        msg='User created, you can now login',
+        #                        success=True,
+        #                        form=create_account_form)
+        flash('用户创建成功，您可以登陆了')
+        return redirect(url_for('authentication_blueprint.login'))
 
     else:
         return render_template('accounts/register.html', form=create_account_form)

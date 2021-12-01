@@ -25,24 +25,32 @@
         <div class="row row-sm">
           <div class="col-lg-8">
             <div class="input-group mg-b-0">
-              <input class="form-control" placeholder="检索关键词，例如:amour" value="" required="" type="text" name="key">
+              <input class="form-control" placeholder="检索关键词，例如:amour" value="{{ key }}" required="" type="text" name="key">
               <span class="input-group-btn">
                 <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
               </span>
             </div><!-- form-group -->
           </div><!-- col -->
         </div><!-- row -->
-        <div class="row row-sm">
-          <div class="col-lg-6">
-            {% for phrase in data %}
-            <textarea rows="5" class="form-control" placeholder="{{ phrase.zh }}" readonly=""></textarea>
-            {% endfor %}
-          </div>
-          <div class="col-lg-6">
-            {% for phrase in data %}
-            <textarea rows="5" class="form-control" placeholder="{{ phrase.fr }}" readonly=""></textarea>
-            {% endfor %}
-          </div>
+        <div class="table-responsive">
+          
+          <table class="table table-hover mg-b-0">
+            <tbody>
+              {% for phrase in data %}
+              <tr>
+                <td colspan="2" class="text-center">¶ N° {{ phrase.id }}</td>
+              </tr>
+              <tr>
+                <td class="w-50 align-middle">
+                  {{ phrase.zh }}
+                </td>
+                <td class="w-50 align-middle">
+                  {{ phrase.fr }}
+                </td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
         </div><!-- row -->
       </form>
     </div><!-- az-content-body -->
