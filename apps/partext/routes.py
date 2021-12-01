@@ -22,8 +22,6 @@ def search():
     key = request.args.get('key')
     if is_contains_chinese(key):
         data = Partext.query.filter(Partext.zh.like("%" + key + "%")).all()
-    if data:
-        print(data)
     else:
         data = Partext.query.filter(Partext.fr.like("%" + key + "%")).all()
     return render_template('partext/partext.html', segment='index', partext="active", data=data,key=key)
