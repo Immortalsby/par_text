@@ -27,9 +27,9 @@ except KeyError:
 app = create_app(app_config)
 Migrate(app, db)
 
-if init_partext == True:
-    with app.app_context():
-        init_partext_db(default_file['zh'],default_file['fr'])
+# if init_partext == True:
+#     with app.app_context():
+#         init_partext_db(default_file['file'])
 
 
 if DEBUG:

@@ -20,7 +20,7 @@ class Config(object):
         config('DB_PASS', default='root'),
         config('DB_HOST', default='localhost'),
         config('DB_PORT', default=3306),
-        config('DB_NAME', default='flask_user')
+        config('DB_NAME', default='partext')
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 
@@ -56,6 +56,7 @@ config_dict = {
 
 default_file = {
     'zh': 'upload/3aube_CN_para_utf8.txt',
-    'fr': 'upload/3aube_FR_para_utf8.txt'
+    'fr': 'upload/3aube_FR_para_utf8.txt',
+    'file': 'upload/Macron20201212-FRCN.txt'
 }
 init_partext = False
