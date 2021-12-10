@@ -43,10 +43,8 @@ class ProductionConfig(Config):
         config('DB_NAME', default='flask_user')
     )
 
-
 class DebugConfig(Config):
     DEBUG = True
-
 
 # Load all possible configurations
 config_dict = {
@@ -59,4 +57,5 @@ default_file = {
     'fr': 'upload/3aube_FR_para_utf8.txt',
     'file': 'upload/Macron20201212-FRCN.txt'
 }
+
 init_partext = False

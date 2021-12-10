@@ -28,6 +28,7 @@
 *      3.17 Table
 *      3.18 Toast
 *      3.19 Tooltip
+*      3.20 opacity(new*)
 *   4. CUSTOM ELEMENT STYLES
 *      4.1  Accordion
 *      4.2  Buttons
@@ -553,21 +554,20 @@ pre {
   margin-left: auto; }
 
 @media (min-width: 576px) {
-  .container, .container-sm {
+  .container, .container-sm , .popup {
     max-width: 540px; } }
 
 @media (min-width: 768px) {
-  .container, .container-sm, .container-md {
+  .container, .container-sm, .container-md , .popup {
     max-width: 720px; } }
 
 @media (min-width: 992px) {
-  .container, .container-sm, .container-md, .container-lg {
+  .container, .container-sm, .container-md, .container-lg , .popup {
     max-width: 960px; } }
 
 @media (min-width: 1200px) {
-  .container, .container-sm, .container-md, .container-lg, .container-xl {
+  .container, .container-sm, .container-md, .container-lg, .container-xl, .popup {
     max-width: 1140px; } }
-
 .row {
   display: flex;
   flex-wrap: wrap;
@@ -7320,6 +7320,58 @@ a.text-dark:hover, a.text-dark:focus {
     border-color: #cdd4e0; } }
 
 /* ########## BOOTSTRAP OVERRIDES ########## */
+/* ###### 3.20 opacity(new*) ###### */
+.opacity-0 {
+  opacity:0!important;
+}
+.opacity-20 {
+  opacity:0.2!important;
+}
+.opacity-30 {
+  opacity:0.3!important;
+}
+.opacity-35 {
+  opacity:0.35!important;
+}
+.opacity-40 {
+  opacity:0.4!important;
+}
+.opacity-45 {
+  opacity:0.45!important;
+}
+.opacity-50 {
+  opacity:.5!important;
+}
+.opacity-55 {
+  opacity:0.55!important;
+}
+.opacity-60 {
+  opacity:0.6!important;
+}
+.opacity-65 {
+  opacity:0.65!important;
+}
+.opacity-70 {
+  opacity:0.7!important;
+}
+.opacity-75 {
+  opacity:0.75!important;
+}
+.opacity-80 {
+  opacity:.8!important;
+}
+.opacity-85 {
+  opacity:0.85!important;
+}
+.opacity-90 {
+  opacity:.9!important;
+}
+.opacity-95 {
+  opacity:0.95!important;
+}
+.opacity-100 {
+  opacity:1!important;
+}
 /* ###### 3.5 Buttons ###### */
 .btn {
   border-width: 0;

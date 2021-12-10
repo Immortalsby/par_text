@@ -1,0 +1,66 @@
+{% block stylesheets %}
+<style>
+    .popup {
+        position: fixed;
+        bottom: 30%;
+        /* left:50%; */
+        z-index: 99;
+        text-decoration: none;
+        border: 1px solid #4F4C6B;
+        opacity: 95%;
+        margin-right: 20px;
+    }
+</style>
+{% endblock stylesheets %}
+
+<div class="table-responsive mt-5 overflow-auto">
+    <table class="table table-hover mg-b-0">
+        {% if data is not none %}
+        <tbody>
+            <tr>
+                <td class="w-50 zh-map">
+                    {% for phrase in data %}
+                    <div class="rect-{{phrase.id}} float-left m-1 {{ phrase.option.zh_color }} opacity-{{ phrase.option.zh_opa }}">
+                    </div>
+                    {% endfor %}
+                </td>
+                <td class="w-50 fr-map">
+                    {% for phrase in data %}
+                    <div class="rect-{{phrase.id}} float-left m-1 {{ phrase.option.fr_color }} opacity-{{ phrase.option.fr_opa }}">
+                    </div>
+                    {% endfor %}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% for phrase in data %}
+
+    <table class="table table-striped mg-b-0 body-{{phrase.id}} popup-body popup d-none table-warning bg-opacity-50">
+        <tbody class="">
+            <tr>
+                <td colspan="2" class="text-center">¶ N° {{ phrase.id }}</td>
+            </tr>
+            <tr>
+                <td class="w-50 align-middle zh">
+                    {{ phrase.zh | safe }}
+                </td>
+                <td class="w-50 align-middle fr">
+                    {{ phrase.fr | safe }}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    {% endfor %}
+    {% else %}
+
+    <table class="table table-hover mg-b-0">
+        <tbody>
+            <tr>
+                <td colspan="2" class="text-center">无结果{{ message }}</td>
+            </tr>
+        </tbody>
+    </table>
+</div><!-- row -->
+{% endif %}

@@ -3,75 +3,69 @@
 {% block title %} Icons {% endblock %}
 
 <!-- Page CSS Plugins goes HERE  -->
-{% block plugin_stylesheets %}{% endblock plugin_stylesheets %}
+{% block plugin_stylesheets %}
+<link href="/static/assets/lib/select2/css/select2.min.css" rel="stylesheet">
+{% endblock plugin_stylesheets %}
 
 <!-- Specific Page CSS goes HERE  -->
-{% block stylesheets %}{% endblock stylesheets %}
+{% block stylesheets %}
+{% endblock stylesheets %}
 
 {% block content %}
 
 <div class="az-content pd-y-20 pd-lg-y-30 pd-xl-y-40">
   <div class="container">
-    <div class="az-content-body pd-lg-l-40 d-flex flex-column">
+    <div class="az-content-body d-flex flex-column">
       <div class="az-content-breadcrumb">
         <span>中法政治话语语料库</span>
         <span>功能</span>
         <span>平行语料库</span>
+        {% if text %}
+        <span>文本查询结果</span>
+        {% elif map %}
+        <span>地形图查询结果</span>
+        {% elif freq %}
+        <span>词频查询结果</span>
+        {% endif %}
       </div>
       <h2 class="az-content-title">平行语料库</h2>
       <div class="az-content-label mg-b-5">平行语料库 &amp; 检索</div>
       <p class="mg-b-20">对已构建的语料，进行术语 (单词或词块)上下文查找，显示基本的可视性数据</p>
-      <form class="" _lpchecked="1" action="/partext/search" method="GET">
+      <form class="" _lpchecked="1" action="/partext/search" method="GET" id="search_form">
         <div class="row row-sm">
           <div class="col-8">
             <div class="input-group mg-b-0">
-              <input class="form-control" placeholder="中文关键词，例如:爱" value="{{ key_zh }}"  type="text"
-              name="key_zh">
-              <input class="form-control" placeholder="法语关键词，例如:amour" value="{{ key_fr }}"  type="text"
-                name="key_fr">
+              <input class="form-control" placeholder="中文检索词，如：国家" value="{{ key_zh }}" type="text" name="key_zh">
+              <input class="form-control" placeholder="法语检索词，如：pays" value="{{ key_fr }}" type="text" name="key_fr">
               <span class="input-group-btn">
-                <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i></button>
+                <button class="btn btn-primary" onclick=""><i class="fa fa-search"></i></button>
               </span>
             </div><!-- form-group -->
           </div><!-- col -->
           <div class="col-4 text-right">
             <label class="mr-2 align-middle mb-0 d-none d-md-inline-block">结果显示方式</label>
-            <select class="form-control select2-no-search col-6 d-inline-block">
-              <option value="text">文本显示</option>
-              <option value="map">地图显示</option>
-              <option value="freq">词频显示</option>
+            <select class="form-control select2-no-search col-md-6 d-inline-block" name="method" id="method">
+              <option value="text" class="opt">文本</option>
+              <option value="map" class="opt">地形图</option>
+              <option value="freq" class="opt">词频</option>
             </select>
           </div><!-- col -->
         </div><!-- row -->
+        <div class="row row-sm">
+          <div class="col-4">
+            <div class="input-group mg-b-0">
+              
+            </div>
+          </div>
+        </div>
       </form>
-      <div class="table-responsive mt-5">
-        <table class="table table-hover mg-b-0">
-          {% if data is not none %}
-          <tbody>
-            {% for phrase in data %}
-            <tr>
-              <td colspan="2" class="text-center">¶ N° {{ phrase.id }}</td>
-            </tr>
-            <tr>
-              <td class="w-50 align-middle">
-                {{ phrase.zh | safe }}
-              </td>
-              <td class="w-50 align-middle">
-                {{ phrase.fr | safe }}
-              </td>
-            </tr>
-            {% endfor %}
-          </tbody>
-          {% else %}
-          <tbody>
-            <tr>
-              <td colspan="2" class="text-center">无结果{{ message }}</td>
-            </tr>
-          </tbody>
-          {% endif %}
-        </table>
-      </div><!-- row -->
-
+      {% if text %}
+      {% include "includes/partext/_text.html" %}
+      {% elif map %}
+      {% include "includes/partext/_map.html" %}
+      {% elif freq %}
+      {% include "includes/partext/_freq.html" %}
+      {% endif %}
     </div><!-- az-content-body -->
   </div><!-- container -->
 </div><!-- az-content -->
@@ -79,7 +73,74 @@
 {% endblock content %}
 
 <!-- Page JS Plugins goes HERE  -->
-{% block plugin_javascripts %}{% endblock plugin_javascripts %}
+{% block plugin_javascripts %}
+<script src="/static/assets/lib/select2/js/select2.min.js"></script>
+{% endblock plugin_javascripts %}
 
 <!-- Specific Page JS goes HERE  -->
-{% block javascripts %}{% endblock javascripts %}
+{% block javascripts %}
+{% if text or map or freq %}
+<script>
+  $(document).ready(function () {
+    $('#method').val("{{text}}{{map}}{{freq}}");
+  });
+</script>
+{% endif %}
+{% if data %}
+<script>
+  var total = parseInt("{{ data | length | safe }}");
+</script>
+{% endif %}
+<script>
+  $(document).ready(function () {
+    // 好看的select
+    $('.select2-no-search').select2({
+      minimumResultsForSearch: Infinity
+    })
+
+    $('#search_form').attr('action', '/partext/search/' + $('#method').val());
+
+    $('').select2({
+      minimumResultsForSearch: Infinity
+    })
+
+    if($('#method').val() == 'freq'){
+
+    }
+
+    for (let i = 1; i <= total; i++) {
+      var len = 0
+      len = ($('.body-' + i+' .zh').text().trim().length + $('.body-' + i+' .fr').text().trim().length) / 2
+      $('.rect-' + i).css({ "width": len + "px", "height": "12px", "border": "1px solid #000" });
+      $('.rect-' + i).eq(i + 1).css({ "width": len + "px", "height": "12px", "border": "1px solid #000" });
+      $('.rect-' + i).hover(function (event) {
+        event.stopPropagation();
+        $('.body-' + i).removeClass("d-none")
+      },
+        function () {
+          event.stopPropagation();
+          $('.body-' + i).addClass("d-none")
+        }
+      );
+      $('.rect-' + i).click(function (event) {
+        event.stopPropagation();
+        $('.popup-body:not(.d-none)').addClass("d-none")
+        $('.body-' + i).removeClass("d-none")
+        $('[class^="rect-"]').unbind('mouseenter mouseleave')
+      });
+    };
+  });
+  $(document).on('click',':not(.popup-body)',function(event){
+        event.stopPropagation();
+        $('.popup-body').addClass("d-none")
+        $('[class^="rect-"]').bind('mouseenter mouseleave')
+  });
+  $('.popup-body').click(function(event){
+    event.stopPropagation();
+  });
+  $("#method").on("change", function () {
+    $('#search_form').attr('action', '/partext/search/' + $('#method').val());
+  });
+</script>
+
+{% endblock javascripts %}

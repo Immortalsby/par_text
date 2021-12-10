@@ -1,0 +1,27 @@
+<div class="table-responsive mt-5">
+  <table class="table table-hover mg-b-0">
+    {% if data is not none %}
+    <tbody>
+      {% for phrase in data %}
+      <tr>
+        <td colspan="2" class="text-center">¶ N° {{ phrase.id }}</td>
+      </tr>
+      <tr>
+        <td class="w-50 align-middle">
+          {{ phrase.zh | safe }}
+        </td>
+        <td class="w-50 align-middle">
+          {{ phrase.fr | safe }}
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+    {% else %}
+    <tbody>
+      <tr>
+        <td colspan="2" class="text-center">无结果{{ message }}</td>
+      </tr>
+    </tbody>
+    {% endif %}
+  </table>
+</div><!-- row -->
