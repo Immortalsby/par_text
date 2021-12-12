@@ -35,8 +35,8 @@
         <div class="row row-sm">
           <div class="col-8">
             <div class="input-group mg-b-0">
-              <input class="form-control" placeholder="中文检索词，如：国家" value="{{ key_zh }}" type="text" name="key_zh">
-              <input class="form-control" placeholder="法语检索词，如：pays" value="{{ key_fr }}" type="text" name="key_fr">
+              <input class="form-control" placeholder="中文检索词，如：国家" {% if guess_fr is not none %} value="{{ key_zh }}"{% endif %} type="text" name="key_zh">
+              <input class="form-control" placeholder="法语检索词，如：pays" {% if guess_zh is not none %} value="{{ key_fr }}"{% endif %} type="text" name="key_fr">
               <span class="input-group-btn">
                 <button class="btn btn-primary" onclick=""><i class="fa fa-search"></i></button>
               </span>
@@ -53,9 +53,7 @@
         </div><!-- row -->
         <div class="row row-sm">
           <div class="col-4">
-            <div class="input-group mg-b-0">
-              
-            </div>
+
           </div>
         </div>
       </form>

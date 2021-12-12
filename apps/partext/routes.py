@@ -8,8 +8,8 @@ from flask import render_template, request
 from flask_login import login_required
 from jinja2 import TemplateNotFound
 from .models import Partext
-from .util import is_contains_chinese
-
+from .util import guess_key, matchcase
+import re,sys
 
 @blueprint.route('/partext', methods=['GET','POST'])
 #@login_required
@@ -104,16 +104,66 @@ def search_map():
 #@login_required
 def search_freq():
     data = None
+    guess_zh = None
+    guess_fr = None
     key_zh = request.args.get('key_zh')
     key_fr = request.args.get('key_fr')
+    count = 0
+    i_zh = []
+    i_fr = []
+    if len(key_fr)==0 and len(key_zh) == 0:
+        print(key_zh,key_fr)
+        return render_template('partext/partext.html', partext="active",data=data,
+         message=":请至少输入一个关键词",key_zh=key_zh,key_fr=key_fr,freq="freq")
+    elif len(key_zh)!=0 and len(key_fr)!=0:
+        data = Partext.query.filter(Partext.zh.like("%" + key_zh + "%")).filter(Partext.fr.like("%" + key_fr + "%")).all()
+        for d in data:
+            # d.zh = d.zh.replace(key_zh, f'<span class="tx-primary">{key_zh}</span>')
+            # d.fr = d.fr.replace(key_fr, f'<span class="tx-primary">{key_fr}</span>')
+            i_zh.append(d.zh.find(key_zh))
+            i_fr.append(d.fr.lower().find(key_fr.lower()))
+            count += d.zh.count(key_zh) + d.fr.lower().count(key_fr.lower())
+            
+    elif len(key_fr)==0 and len(key_zh)!=0:
+        data = Partext.query.filter(Partext.zh.like("%" + key_zh + "%")).all()
+        try:
+            key_fr = guess_key(key_zh).lower()
+            key_fr = key_fr.replace('.','')
+            print(key_fr)
+            guess_fr = True
+        except Exception:
+            print(Exception)
+        for d in data:
+            # d.zh = d.zh.replace(key_zh, f'<span class="tx-primary">{key_zh}</span>')
+            # if key_fr and len(key_fr)!=0:
+            #     d.fr = re.sub(key_fr, matchcase('<span class="tx-primary">',key_fr,'</span>'), d.fr, flags=re.IGNORECASE)
+            i_zh.append(d.zh.find(key_zh))
+            i_fr.append(d.fr.lower().find(key_fr.lower()))
+            count += d.zh.count(key_zh) + d.fr.lower().count(key_fr.lower())
+    elif len(key_fr)!=0 and len(key_zh)==0:
+        data = Partext.query.filter(Partext.fr.like("%" + key_fr + "%")).all()
+        try:
+            key_zh = guess_key(key_fr)
+            print(key_zh)
+            guess_zh = True
+        except Exception:
+            print(Exception)
+        for d in data:
+            # d.fr = d.fr.replace(key_fr, f'<span class="tx-primary">{key_fr}</span>')
+            # if key_zh and len(key_zh)!=0:
+            #     d.zh = d.zh.replace(key_zh, f'<span class="tx-primary">{key_zh}</span>')
+            i_zh.append(d.zh.find(key_zh))
+            i_fr.append(d.fr.lower().find(key_fr.lower()))
+            count += d.zh.count(key_zh) + d.fr.lower().count(key_fr.lower())
     if data:
         pass
     else:
         data = None
     try:
-        return render_template('partext/partext.html', partext="active", data=data,
-        key_zh=key_zh,key_fr=key_fr,freq="freq")
+        return render_template('partext/partext.html',partext="active", count=count,data=data,
+        key_zh=key_zh,key_fr=key_fr,freq="freq",i_zh=i_zh,i_fr=i_fr,guess_zh=guess_zh,guess_fr=guess_fr)
     except TemplateNotFound:
         return render_template('home/page-404.html'), 404
-    except:
+    except Exception:
+        print("Unexpected error:", sys.exc_info()[0])
         return render_template('home/page-500.html'), 500

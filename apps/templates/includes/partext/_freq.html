@@ -1,0 +1,40 @@
+<div class="table-responsive mt-5">
+    <table class="table table-hover mg-b-0">
+        {% if data is not none %}
+        <thead>
+            <tr>
+                <td>序号</td>
+                <td>频率</td>
+                <td>中文</td>
+                <td>法语</td>
+                <td>来源</td>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    1
+                </td>
+                <td>
+                    {{ count }}
+                </td>
+                <td class="w-50 align-middle">
+                    ...{{ data[0].zh | truncate(i_zh[0], key_zh|length, 20) | replace(key_zh, "<span class='tx-primary'>"+key_zh+"</span>") | safe}}...
+                </td>
+                <td class="w-50 align-middle">
+                    ...{{ data[0].fr | lower | truncate(i_fr[0], key_fr|length, 50) | replace(key_fr, "<span class='tx-primary'>"+key_fr+"</span>") | safe}}...
+                </td>
+                <td>
+                    <a href="/partext/search/map?key_zh={{key_zh}}&key_fr={{key_fr}}&method=map">Macron20201212-FRCN</a>
+                </td>
+            </tr>
+        </tbody>
+        {% else %}
+        <tbody>
+            <tr>
+                <td colspan="2" class="text-center">无结果{{ message }}</td>
+            </tr>
+        </tbody>
+        {% endif %}
+    </table>
+</div><!-- row -->

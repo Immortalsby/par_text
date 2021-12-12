@@ -25,17 +25,20 @@ def register_blueprints(app):
 
 
 def configure_database(app):
-
     @app.before_first_request
     def initialize_database():
         db.create_all()
         if init_partext == True:
             with app.app_context():
                 init_partext_db(default_file['file'])
-
     @app.teardown_request
     def shutdown_session(exception=None):
         db.session.remove()
+
+def override_jinja2(app):
+    @app.template_filter('truncate')
+    def truncate(s, i, length, step):
+        return s[i-step if i-step > 0 else 0:i+length+step]
 
 def create_app(config):
     app = Flask(__name__)
@@ -43,4 +46,5 @@ def create_app(config):
     register_extensions(app)
     register_blueprints(app)
     configure_database(app)
+    override_jinja2(app)
     return app
