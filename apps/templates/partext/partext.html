@@ -35,8 +35,8 @@
         <div class="row row-sm">
           <div class="col-8">
             <div class="input-group mg-b-0">
-              <input class="form-control" placeholder="中文检索词，如：国家" {% if guess_fr is not none %} value="{{ key_zh }}"{% endif %} type="text" name="key_zh">
-              <input class="form-control" placeholder="法语检索词，如：pays" {% if guess_zh is not none %} value="{{ key_fr }}"{% endif %} type="text" name="key_fr">
+              <input class="form-control" placeholder="中文检索词，如：国家" value="{{ key_zh }}" type="text" name="key_zh">
+              <input class="form-control" placeholder="法语检索词，如：pays" value="{{ key_fr }}" type="text" name="key_fr">
               <span class="input-group-btn">
                 <button class="btn btn-primary" onclick=""><i class="fa fa-search"></i></button>
               </span>
@@ -102,10 +102,6 @@
       minimumResultsForSearch: Infinity
     })
 
-    if($('#method').val() == 'freq'){
-
-    }
-
     for (let i = 1; i <= total; i++) {
       var len = 0
       len = ($('.body-' + i+' .zh').text().trim().length + $('.body-' + i+' .fr').text().trim().length) / 2
@@ -138,6 +134,7 @@
   });
   $("#method").on("change", function () {
     $('#search_form').attr('action', '/partext/search/' + $('#method').val());
+    $('#search_form').submit()
   });
 </script>
 

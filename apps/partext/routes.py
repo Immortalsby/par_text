@@ -134,9 +134,6 @@ def search_freq():
         except Exception:
             print(Exception)
         for d in data:
-            # d.zh = d.zh.replace(key_zh, f'<span class="tx-primary">{key_zh}</span>')
-            # if key_fr and len(key_fr)!=0:
-            #     d.fr = re.sub(key_fr, matchcase('<span class="tx-primary">',key_fr,'</span>'), d.fr, flags=re.IGNORECASE)
             i_zh.append(d.zh.find(key_zh))
             i_fr.append(d.fr.lower().find(key_fr.lower()))
             count += d.zh.count(key_zh) + d.fr.lower().count(key_fr.lower())
@@ -149,9 +146,6 @@ def search_freq():
         except Exception:
             print(Exception)
         for d in data:
-            # d.fr = d.fr.replace(key_fr, f'<span class="tx-primary">{key_fr}</span>')
-            # if key_zh and len(key_zh)!=0:
-            #     d.zh = d.zh.replace(key_zh, f'<span class="tx-primary">{key_zh}</span>')
             i_zh.append(d.zh.find(key_zh))
             i_fr.append(d.fr.lower().find(key_fr.lower()))
             count += d.zh.count(key_zh) + d.fr.lower().count(key_fr.lower())
