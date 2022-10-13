@@ -16,11 +16,11 @@ class Config(object):
     # This will create a file in <app> FOLDER
     SQLALCHEMY_DATABASE_URI = '{}://{}:{}@{}:{}/{}'.format(
         config('DB_ENGINE', default='mysql+pymysql'),
-        config('DB_USERNAME', default='root'),
-        config('DB_PASS', default='root'),
+        config('DB_USERNAME', default='sql_politics_cor'),
+        config('DB_PASS', default='t3TJDFJEZAKSdk3n'),
         config('DB_HOST', default='localhost'),
         config('DB_PORT', default=3306),
-        config('DB_NAME', default='partext')
+        config('DB_NAME', default='sql_politics_cor')
     )
     SQLALCHEMY_TRACK_MODIFICATIONS = False
 

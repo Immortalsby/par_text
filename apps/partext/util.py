@@ -1,4 +1,4 @@
-from deep_translator import DeepL
+from deep_translator import DeeplTranslator
 
 def is_contains_chinese(strs):
     for _char in strs:
@@ -27,7 +27,7 @@ def guess_key(s):
         source, target = 'chinese', 'french'
     else:
         source, target = 'french', 'chinese'
-    translated = DeepL(api_key="94001194-c302-dea6-9fda-02a577bb4b3f:fx",
+    translated = DeeplTranslator(api_key="94001194-c302-dea6-9fda-02a577bb4b3f:fx",
 source=source, target=target, use_free_api=True).translate(s, return_all=True)
     return translated
 
